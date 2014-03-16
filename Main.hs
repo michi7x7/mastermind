@@ -19,7 +19,7 @@ check res True  = Right res
 
 mainLoop :: PegCode -> Int -> IO (Maybe Int)
 mainLoop code n = do
-    printf "This is your %s try. Your guess please:" $ prettyCount n
+    printf "\nThis is your %s try. Your guess please:\n" $ prettyCount n
     str <- getLine
 
     let guess = strToPegs str
@@ -35,14 +35,14 @@ mainLoop code n = do
 
     case res of
         Right () -> do
-            printf "%s | " $ showCols guess
+            printf ">> %s | " $ showCols guess
             case comp of
                 []   -> putStrLn "Sorry, no hit. try again!"
                 comp -> putStrLn $ showComp comp
             mainLoop code (n+1)
 
         Left ResWrongInput -> do
-            putStrLn "!! The code you entered has the wrong length!"
+            putStrLn "\ESC[1;31m!! The code you entered has the wrong length!\ESC[0m"
             mainLoop code n
 
         Left ResAbort -> return Nothing

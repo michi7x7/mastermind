@@ -27,12 +27,12 @@ showComp = map show'
 
 
 colors = [
-    (Red,    "[  Red   ]"),
-    (Green,  "[ Green  ]"),
-    (Blue,   "[  Blue  ]"),
-    (Yellow, "[ Yellow ]"),
-    (Purple, "[ Purple ]"),
-    (Orange, "[ Orange ]")]
+    (Red,    "\ESC[0;31m[  Red   ]\ESC[0m"),
+    (Green,  "\ESC[0;32m[ Green  ]\ESC[0m"),
+    (Blue,   "\ESC[0;34m[  Blue  ]\ESC[0m"),
+    (Yellow, "\ESC[0;33m[ Yellow ]\ESC[0m"),
+    (Purple, "\ESC[0;35m[ Purple ]\ESC[0m"),
+    (Orange, "\ESC[0;91m[ Orange ]\ESC[0m")]
     
 showCol :: PegColor -> String
 showCol c = case lookup c colors of
