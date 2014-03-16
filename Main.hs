@@ -34,20 +34,24 @@ mainLoop code n = do
 
     case res of
         Right () -> do
-            printf ">> %s | " $ showCols guess
+            putStr ">> "
+	    printCols guess
+	    putStr " | "
             case comp of
                 []   -> putStrLn "Sorry, no hit. try again!"
                 comp -> putStrLn $ showComp comp
             mainLoop code (n+1)
 
         Left ResWrongInput -> do
-            putStrLn "\ESC[1;31m!! The code you entered has the wrong length!\ESC[0m"
+            printWrLength
             mainLoop code n
 
         Left ResAbort -> return Nothing
         
         Left ResFound  -> do
-            printf "You won with %s\n" $ showCols guess
+            putStr "You won with "
+	    printCols guess
+	    putStrLn ""
             return $ Just n
 
 
