@@ -17,7 +17,7 @@ cabal-version:       >=1.10
 
 executable Mastermind
   main-is:             Main.hs
-  other-modules:       GameRules.hs GameIO.hs HelperIO.hs
+  other-modules:       GameRules GameIO HelperIO
   -- other-extensions:    
   build-depends:       base >=4.6 && <4.7, mtl >=2.1 && <2.2, random >=1.0 && <1.1
   -- hs-source-dirs:      

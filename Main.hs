@@ -27,11 +27,10 @@ mainLoop code n = do
         comp = compPegs code guess
     
     let res = do -- Monad: Either IterRes ()
-        check ResAbort $ str /= "quit"
-        check ResWrongInput $ length guess == length code
-        check ResFound $ not eq
-
-        return ()
+          check ResAbort $ str /= "quit"
+          check ResWrongInput $ length guess == length code
+          check ResFound $ not eq
+          return ()
 
     case res of
         Right () -> do
