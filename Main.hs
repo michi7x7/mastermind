@@ -11,7 +11,6 @@ import Control.Monad.Error
 import Text.Printf (printf)
 
 data IterRes = ResAbort | ResWrongInput | ResFound
-    deriving (Show)
     
 check :: IterRes -> Bool -> Either IterRes IterRes
 check res False = Left res
@@ -19,10 +18,10 @@ check res True  = Right res
 
 mainLoop :: PegCode -> Int -> IO (Maybe Int)
 mainLoop code n = do
-    printf "\nThis is your %s try. Your guess please:\n" $ prettyCount n
-    str <- getLine
+    str <- getGuess n
 
-    let guess = strToPegs str
+    let len = length code
+        guess = strToPegs str
         eq   = code == guess
         comp = compPegs code guess
     
@@ -34,12 +33,7 @@ mainLoop code n = do
 
     case res of
         Right () -> do
-            putStr ">> "
-	    printCols guess
-	    putStr " | "
-            case comp of
-                []   -> putStrLn "Sorry, no hit. try again!"
-                comp -> putStrLn $ showComp comp
+            printRating len guess comp
             mainLoop code (n+1)
 
         Left ResWrongInput -> do
@@ -49,9 +43,7 @@ mainLoop code n = do
         Left ResAbort -> return Nothing
         
         Left ResFound  -> do
-            putStr "You won with "
-	    printCols guess
-	    putStrLn ""
+            printWin guess
             return $ Just n
 
 
@@ -76,4 +68,6 @@ main = do
 
     case res of
         Just n  -> printf "Congratiulations, you took %d tries\n" n
-        Nothing -> putStrLn "You fail miserably..."
+        Nothing -> putStrLn "Too hard, huh?"
+    _ <- getLine
+    return ()

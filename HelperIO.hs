@@ -1,14 +1,8 @@
 module HelperIO where
 
-prettyCount :: Int -> String
-prettyCount n
-    | n < length ns = ns !! n
-    | otherwise = (show n) ++ "th"
-    where
-        ns = ["last", "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth"]
+import qualified System.Console.ANSI as Con
 
-
-
+-- Game Rules
 printRules :: IO ()
 printRules = do
     putStrLn "--- MASTERMIND ---"
@@ -25,12 +19,13 @@ printRules = do
     putStrLn " On each try the computer will respond with a pattern to show"
     putStrLn " you how many blocks are in the right position, or of the right"
     putStrLn " color but at the wrong position"
-    putStrLn " '+'' represents the first, 'o' the latter case"
+    putStrLn " '+' represents the first, 'o' the latter case"
     putStrLn ""
     putStrLn "Type 'quit' to give up"
     putStrLn ""
     putStrLn "GOOD LUCK!"
     putStrLn ""
+
 
 data CmdArg = Help | CodeLen Int
     deriving (Eq)
