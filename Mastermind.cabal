@@ -3,17 +3,21 @@
 
 name:                Mastermind
 version:             0.1.0.0
--- synopsis:            
--- description:         
--- license:             
+synopsis:            Mastermind
+description:         Mastermind implementation using ansi-terminal for pretty output
+license:             GPL-2
 license-file:        LICENSE
-author:              michi7x7
--- maintainer:          
+author:              Michael Sieberer
+maintainer:          Michael Sieberer
 -- copyright:           
 category:            Game
 build-type:          Simple
 -- extra-source-files:  
 cabal-version:       >=1.10
+
+source-repository head
+  type:     git
+  location: https://github.com/michi7x7/mastermind.git
 
 executable Mastermind
   main-is:             Main.hs
