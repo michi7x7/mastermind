@@ -27,17 +27,20 @@ printRules = do
     putStrLn ""
 
 
-data CmdArg = Help | CodeLen Int
-    deriving (Eq)
+data StartOpts = StartOpts {
+       showHelp :: Bool,
+       codeLen  :: Int
+       }
 
-parseArgs :: [String] -> [CmdArg]
+parseArgs :: [String] -> StartOpts
 parseArgs (s:ss)
-    | s == "-h"     = Help : parseArgs ss
-    | s == "--help" = Help : parseArgs ss
-    | s == "-n"     = CodeLen (read h) : parseArgs ss
-    | otherwise     = parseArgs ss
+    | s == "-h"     = cont {showHelp = True}
+    | s == "--help" = cont {showHelp = True}
+    | s == "-n"     = cont {codeLen = (read h)}
+    | otherwise     = cont
     where
+        cont = parseArgs ss
         h = case length ss of
             0 -> ""
             _ -> head ss
-parseArgs _ = []
+parseArgs _ = StartOpts {showHelp = False, codeLen = 6}

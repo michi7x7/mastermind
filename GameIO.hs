@@ -70,7 +70,7 @@ printRating n guess (n1,n2) = do
     Con.setSGR $ (:[]) $ Con.SetColor Con.Foreground Con.Vivid Con.Green
     putStr $ take n1 $ repeat '+'
     Con.setSGR $ (:[]) $ Con.Reset
-    putStr $ take n2 $ repeat '-'
+    putStr $ take n2 $ repeat 'o'
     putStr $ take (n - n1 - n2) $ repeat ' '
     putStrLn "]"
 
