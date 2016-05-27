@@ -2,7 +2,7 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                Mastermind
-version:             0.1.0.0
+version:             0.1.1.0
 synopsis:            Mastermind
 description:         Mastermind implementation using ansi-terminal for pretty output
 license:             GPL-2
@@ -13,7 +13,7 @@ maintainer:          Michael Sieberer
 category:            Game
 build-type:          Simple
 -- extra-source-files:  
-cabal-version:       >=1.10
+cabal-version:       >=1.22
 
 source-repository head
   type:     git
@@ -23,6 +23,6 @@ executable Mastermind
   main-is:             Main.hs
   other-modules:       GameRules GameIO HelperIO
   -- other-extensions:    
-  build-depends:       base >=4.6 && <4.7, mtl >=2.1 && <2.2, random >=1.0 && <1.1, ansi-terminal >= 0.6
+  build-depends:       base >=4.8, mtl >=2.2, random >=1.1, ansi-terminal >= 0.6, mmorph >= 1.0
   -- hs-source-dirs:      
   default-language:    Haskell2010

@@ -8,8 +8,9 @@ printRules = do
     putStrLn "--- MASTERMIND ---"
     putStrLn ""
     putStrLn "Command Line Arguments:"
-    putStrLn " -h --help : Prints this Help"
-    putStrLn " -n N      : Sets the code-length to N"
+    putStrLn " -h --help   : Prints this Help"
+    putStrLn " -n N        : Sets the code-length to N"
+    putStrLn " -a {CODE|N} : Starts the AI to solve the Code"
     putStrLn ""
     putStrLn "RULES: Try guessing the code with as little tries as possible"
     putStrLn " The code consists of 4 pegs with one of 6 colors"
@@ -29,7 +30,8 @@ printRules = do
 
 data StartOpts = StartOpts {
        showHelp :: Bool,
-       codeLen  :: Int
+       codeLen  :: Int,
+       aiMode   :: Maybe String
        }
 
 parseArgs :: [String] -> StartOpts
@@ -37,10 +39,12 @@ parseArgs (s:ss)
     | s == "-h"     = cont {showHelp = True}
     | s == "--help" = cont {showHelp = True}
     | s == "-n"     = cont {codeLen = (read h)}
+    | s == "--ai"   = cont {aiMode  = Just h}
+    | s == "-a"     = cont {aiMode  = Just h}
     | otherwise     = cont
     where
         cont = parseArgs ss
         h = case length ss of
             0 -> ""
             _ -> head ss
-parseArgs _ = StartOpts {showHelp = False, codeLen = 6}
+parseArgs _ = StartOpts {showHelp = False, codeLen = 4, aiMode = Nothing}
