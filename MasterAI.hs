@@ -34,11 +34,13 @@ masterAI res = do
                     Nothing -> []
                     Just guess -> (guess, res): aiGuesses st 
         cl = codeLen st
+
+    put st {aiGuesses = aiGss}
     
     guess <- case aiTurn st of
-                1 -> return $ take cl [Red,Green,Red,Green,Red,Green]
-                2 -> return $ take cl [Blue,Yellow,Blue,Yellow,Blue,Yellow]
-                3 -> return $ take cl [Purple,Orange,Purple,Orange,Purple,Orange]
+                1 -> return $ take cl $ cycle [Red,Green]
+                2 -> return $ take cl $ cycle [Blue,Yellow]
+                3 -> return $ take cl $ cycle [Purple,Orange]
                 n -> chooseBestGuess
                         
     put st { aiTurn = aiTurn st + 1,
