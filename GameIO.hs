@@ -62,7 +62,7 @@ printWrLength = do
     putStrLn "The code you entered has the wrong length!"
     Con.setSGR $ (:[]) $ Con.Reset
 
-printRating :: Int -> PegCode -> (Int, Int) -> IO()
+printRating :: Int -> PegCode -> CompRes -> IO()
 printRating n guess (n1,n2) = do
     putStr ">> "
     printCols guess

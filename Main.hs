@@ -3,9 +3,11 @@ module Main where
 import GameRules
 import GameIO
 import HelperIO
+import MasterAI
 
 import Data.List (sort)
 import System.Environment (getArgs)
+import Control.Monad.State (runState)
 import Control.Monad.Error
 
 import Text.Printf (printf)
@@ -15,6 +17,29 @@ data IterRes = ResAbort | ResWrongInput | ResFound
 check :: IterRes -> Bool -> Either IterRes IterRes
 check res False = Left res
 check res True  = Right res
+
+mainAILoop :: PegCode -> AIState -> CompRes -> IO ()
+mainAILoop code st res = do
+    let len = length code
+        (g, st') = runState (masterAI res) st
+        eq       = code == g
+        comp     = compPegs code g
+    
+    if eq then do
+        printWin g
+        return ()
+    else do
+        printRating len g comp
+        mainAILoop code st' comp
+
+mainAI :: IO ()
+mainAI = do
+    let len = 4
+    code <- genRandomCode len
+    st   <- initAIState len
+    
+    printf "A code with length %d has been prepared, lets begin!\n\n" len
+    mainAILoop code st (0,0)
 
 mainLoop :: PegCode -> Int -> IO (Maybe Int)
 mainLoop code n = do

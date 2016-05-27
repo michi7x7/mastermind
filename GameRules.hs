@@ -1,4 +1,4 @@
-module GameRules (PegColor (..), PegCode, compPegs, genRandomCode) where
+module GameRules (PegColor (..), PegCode, CompRes, compPegs, genRandomCode) where
 
 import Data.List (sort, elem, delete, (\\))
 import System.Random
@@ -8,8 +8,9 @@ data PegColor = Red | Green | Blue | Yellow | Purple | Orange
 
 
 type PegCode  = [PegColor]
+type CompRes  = (Int, Int)
 
-compPegs :: PegCode -> PegCode -> (Int, Int)
+compPegs :: PegCode -> PegCode -> CompRes
 compPegs code guess =
     let (n1, code', guess') = fnd1 code guess (0, [], []) -- pos and col ok
         n2 = (length guess') - (length $ guess' \\ code') -- col ok, wrong pos
