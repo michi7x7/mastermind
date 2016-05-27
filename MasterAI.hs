@@ -23,7 +23,7 @@ colors = [Red, Green, Blue, Yellow, Purple, Orange]
 initAIState :: Int -> IO AIState
 initAIState n = do
         gen <- newStdGen
-        return $ AIState 1 [] n p gen
+        return $ AIState 0 [] n p gen
     where
         p = replicateM n colors
 
