@@ -48,37 +48,45 @@ conColors = [
     (Orange, (Con.Red, Con.Vivid))]
 
 
+-- | sets Foreground to Intensity and Color
+setConCol int col = Con.setSGR $ (:[]) $ Con.SetColor Con.Foreground int col
+resetConCol = Con.setSGR $ (:[]) $ Con.Reset
+
 printCols :: PegCode -> IO ()
 printCols code = do
     forM code (\c -> do
         let (col, int) = fromJust $ lookup c conColors
-        Con.setSGR $ (:[]) $ Con.SetColor Con.Foreground int col
+        setConCol int col
         putStr $ showCol c )
-    Con.setSGR $ (:[]) $ Con.Reset
+    resetConCol
 
 printWrLength :: IO ()
 printWrLength = do
-    Con.setSGR $ (:[]) $ Con.SetColor Con.Foreground Con.Dull Con.Red
+    setConCol Con.Dull Con.Red
     putStrLn "The code you entered has the wrong length!"
-    Con.setSGR $ (:[]) $ Con.Reset
+    resetConCol
 
 printRating :: Int -> PegCode -> CompRes -> IO()
 printRating n guess (n1,n2) = do
     putStr ">> "
     printCols guess
     putStr " ["
-    Con.setSGR $ (:[]) $ Con.SetColor Con.Foreground Con.Vivid Con.Green
+    setConCol Con.Vivid Con.Green
     putStr $ take n1 $ repeat '+'
-    Con.setSGR $ (:[]) $ Con.Reset
+    resetConCol
     putStr $ take n2 $ repeat 'o'
     putStr $ take (n - n1 - n2) $ repeat ' '
     putStrLn "]"
 
 printWin :: PegCode -> IO ()
 printWin code = do
-    putStr "!! "
+    putStrLn ""
+    setConCol Con.Vivid Con.Green
+    putStr "++ "
     printCols code
-    putStrLn " !!"
+    setConCol Con.Vivid Con.Green
+    putStrLn "  ++++"
+    resetConCol
 
 prettyCount :: Int -> String
 prettyCount n

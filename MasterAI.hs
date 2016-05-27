@@ -32,9 +32,9 @@ masterAI = do
     cl   <- gets codeLen
     turn <- gets aiTurn
     guess <- case turn of
-                1 -> return $ take cl $ cycle [Red,Green]
-                2 -> return $ take cl $ cycle [Blue,Yellow]
-                3 -> return $ take cl $ cycle [Purple,Orange]
+                0 -> return $ take cl $ cycle [Red,Green]
+                1 -> return $ take cl $ cycle [Blue,Yellow]
+                -- 2 -> return $ take cl $ cycle [Purple,Orange]
                 n -> chooseBestGuess
     return guess
 
